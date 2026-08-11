@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DE Venom — AI Video & Audio Studio</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#020712;color:#f6f7fb;font-family:Inter,system-ui,sans-serif}body:before{content:"";position:fixed;inset:-30%;z-index:-1;background:radial-gradient(circle at 15% 15%,#0b3b70aa,transparent 32%),radial-gradient(circle at 85% 10%,#092a55aa,transparent 30%),radial-gradient(circle at 50% 90%,#061a38aa,transparent 38%);filter:blur(30px)}
+nav{position:sticky;top:0;z-index:5;padding:16px 5vw;background:#020712ee;backdrop-filter:blur(15px);border-bottom:1px solid #ffffff12;display:flex;justify-content:space-between}.logo{font-weight:900}.logo span{opacity:.5}.navlinks{display:flex;gap:18px}.navlinks a{color:#ddd;text-decoration:none;font-size:14px}
+.hero{min-height:70vh;display:grid;place-items:center;text-align:center;padding:70px 5vw}.badge{display:inline-block;border:1px solid #ffffff1c;background:#ffffff08;padding:8px 12px;border-radius:999px;font-size:12px}h1{font-size:clamp(48px,9vw,100px);line-height:.9;letter-spacing:-.07em;margin:22px 0}.grad{background:linear-gradient(110deg,#fff,#93c5fd,#38bdf8,#fff);background-clip:text;-webkit-background-clip:text;color:transparent}.hero p{max-width:700px;margin:auto;color:#aaa;font-size:18px;line-height:1.6}.actions{display:flex;gap:12px;justify-content:center;margin-top:25px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:14px 18px;font-weight:800;cursor:pointer;background:#fff;color:#08080a}.secondary{background:#ffffff0c;color:#fff;border:1px solid #ffffff18}.btn:disabled{opacity:.5}section{width:min(1100px,90vw);margin:0 auto 90px}.title{font-size:34px;font-weight:800;margin-bottom:8px}.muted{color:#9299a5}.card{background:#ffffff08;border:1px solid #ffffff12;border-radius:22px;padding:26px}.field{margin-bottom:17px}label{display:block;color:#bbb;font-size:13px;margin-bottom:7px}input,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid #ffffff18;background:#0008;color:#fff}textarea{min-height:110px;resize:vertical}.preview{text-align:center;margin-top:12px}.preview img{width:220px;height:220px;object-fit:cover;border-radius:15px}.status{margin-top:13px;color:#aaa;font-size:14px}.success{color:#86efac}.error{color:#fda4af}.loading{display:none;text-align:center;margin-top:18px;padding:18px;background:#0008;border-radius:16px}.spin{width:32px;height:32px;border:3px solid #ffffff22;border-top-color:#fff;border-radius:50%;margin:auto auto 10px;animation:s 1s linear infinite}@keyframes s{to{transform:rotate(360deg)}}.result{display:none;margin-top:20px;padding:18px;border-radius:16px;background:#0008;border:1px solid #ffffff12}.result video{width:100%;border-radius:12px;margin-top:12px}.result audio{width:100%;margin-top:12px}.result a{color:#c4b5fd;word-break:break-all}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.box{padding:18px;background:#ffffff06;border:1px solid #ffffff0d;border-radius:16px}.prices{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:18px}.price{font-size:38px;font-weight:900;margin:8px 0}.admin{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}footer{text-align:center;padding:30px;color:#666;border-top:1px solid #ffffff0d}footer a{color:#aaa}@media(max-width:700px){.navlinks{display:none}.grid,.prices,.admin{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<nav><div class="logo">DE <span>VENOM</span></div><div class="navlinks"><a href="#video">Video</a><a href="#audio">Audio</a><a href="#premium">Premium</a><a href="#admin">Admin</a></div></nav>
+
+<header class="hero"><div><div class="badge">MAGIC HOUR · AI VIDEO + AUDIO</div><h1>Make your photo <span class="grad">move.</span></h1><p>Upload a photo, describe the movement, and DE Venom creates a cinematic 6-second AI video with audio.</p><div class="actions"><a class="btn" href="#video">Create Video</a><a class="btn secondary" href="#audio">Create Audio</a></div></div></header>
+
+<section id="video"><div class="title">AI Image → Video</div><p class="muted">Magic Hour creates a 6-second cinematic video from your photo and prompt.</p><div class="card">
+<form id="videoForm"><div class="field"><label>Photo</label><input id="image" type="file" accept="image/jpeg,image/png,image/webp" required><div id="preview" class="preview"></div></div>
+<div class="field"><label>Movement command</label><textarea id="motion" placeholder="Example: Slowly turn the person's head, make them smile naturally, and let their hair move gently in the wind." required></textarea></div>
+<button class="btn" id="videoBtn">Generate 6-Second Video</button><div id="videoStatus" class="status"></div></form>
+<div id="videoLoading" class="loading"><div class="spin"></div><b>Magic Hour is creating your video…</b><p class="muted">This may take a little while. Keep this page open.</p></div><div id="videoResult" class="result"></div>
+</div><div class="grid"><div class="box"><b>📸 Image input</b><p class="muted">JPG, PNG or WebP.</p></div><div class="box"><b>🎬 6-second video</b><p class="muted">Movement from your prompt.</p></div><div class="box"><b>🔊 Video audio</b><p class="muted">Audio is enabled when supported by the model.</p></div></div></section>
+
+<section id="audio"><div class="title">AI Audio / Voice</div><p class="muted">Generate an AI voice from text.</p><div class="card"><div class="field"><label>Text</label><textarea id="audioText" placeholder="Welcome to DE Venom, where your photos come alive."></textarea></div><div class="field"><label>Voice (optional)</label><input id="voice" placeholder="default"></div><button class="btn" id="audioBtn">Generate AI Audio</button><div id="audioStatus" class="status"></div><div id="audioResult" class="result"></div></div></section>
+
+<section id="premium"><div class="title">Premium</div><p class="muted">Activate Premium to receive persistent links.</p><div class="card"><div class="field"><label>Premium access key</label><input id="premiumKey" type="password"></div><button class="btn" id="premiumBtn">Activate Premium</button><div id="premiumStatus" class="status"></div></div><div class="prices"><div class="card">MONTHLY<div class="price" id="monthly">₦1,000</div></div><div class="card">YEARLY<div class="price" id="yearly">₦15,000</div></div></div></section>
+
+<section id="admin"><div class="title">Admin Price Control</div><p class="muted">Only use this section with your private admin key.</p><div class="card"><div class="admin"><div><label>Admin key</label><input id="adminKey" type="password"></div><div></div><div><label>Monthly price</label><input id="monthInput" type="number" value="1000"></div><div><label>Yearly price</label><input id="yearInput" type="number" value="15000"></div><div class="full"><button class="btn" id="priceBtn">Save Prices</button><div id="adminStatus" class="status"></div></div></div></div></section>
+
+<footer>DE Venom · Magic Hour AI Studio · <a href="/health">Health Check</a></footer>
+
+<script>
+const $=x=>document.getElementById(x);
+$("image").addEventListener("change",()=>{const f=$("image").files[0];$("preview").innerHTML="";if(f){const i=document.createElement("img");i.src=URL.createObjectURL(f);$("preview").appendChild(i)}});
+
+async function prices(){try{const r=await fetch("/api/prices"),p=await r.json();$("monthly").textContent="₦"+Number(p.monthly).toLocaleString();$("yearly").textContent="₦"+Number(p.yearly).toLocaleString();$("monthInput").value=p.monthly;$("yearInput").value=p.yearly}catch{}}
+prices();
+
+$("videoForm").addEventListener("submit",async e=>{
+e.preventDefault();const f=$("image").files[0],m=$("motion").value.trim(),s=$("videoStatus");
+if(!f||!m){s.className="status error";s.textContent="Choose a photo and enter a movement command.";return}
+$("videoBtn").disabled=true;$("videoLoading").style.display="block";$("videoResult").style.display="none";s.textContent="Generating with Magic Hour…";
+try{const fd=new FormData();fd.append("images",f);fd.append("motion",m);const h={};const t=localStorage.getItem("deVenomPremiumToken");if(t)h["x-premium-token"]=t;const r=await fetch("/api/create-video",{method:"POST",headers:h,body:fd}),d=await r.json();if(!r.ok)throw Error(d.error||"Video generation failed.");s.className="status success";s.textContent="Video ready!";$("videoResult").style.display="block";let x=`<b>Your AI video</b><video controls playsinline src="${d.videoUrl}"></video><br><a href="${d.videoUrl}" target="_blank">Open video</a>`;if(d.premium)x+=`<p><b>Persistent Premium link</b><br><a href="${d.persistentUrl}" target="_blank">${location.origin}${d.persistentUrl}</a></p>`;else x+=`<p><b>View-once link</b><br><a href="${d.viewOnceUrl}" target="_blank">${location.origin}${d.viewOnceUrl}</a></p>`;$("videoResult").innerHTML=x}catch(err){s.className="status error";s.textContent=err.message}finally{$("videoLoading").style.display="none";$("videoBtn").disabled=false}});
+
+$("audioBtn").addEventListener("click",async()=>{const text=$("audioText").value.trim(),voice=$("voice").value.trim(),s=$("audioStatus");if(!text){s.className="status error";s.textContent="Enter text first.";return}$("audioBtn").disabled=true;s.textContent="Generating AI audio…";try{const r=await fetch("/api/create-audio",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,voice})}),d=await r.json();if(!r.ok)throw Error(d.error||"Audio generation failed.");s.className="status success";s.textContent="Audio ready!";$("audioResult").style.display="block";$("audioResult").innerHTML=`<b>AI Audio</b><audio controls src="${d.audioUrl}"></audio><br><a href="${d.audioUrl}" target="_blank">Open audio</a>`}catch(e){s.className="status error";s.textContent=e.message}finally{$("audioBtn").disabled=false}});
+
+$("premiumBtn").addEventListener("click",async()=>{const s=$("premiumStatus");try{const r=await fetch("/api/premium/activate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:$("premiumKey").value})}),d=await r.json();if(!r.ok)throw Error(d.error||"Invalid key.");localStorage.setItem("deVenomPremiumToken",d.token);s.className="status success";s.textContent="Premium activated."}catch(e){s.className="status error";s.textContent=e.message}});
+
+$("priceBtn").addEventListener("click",async()=>{const s=$("adminStatus");try{const r=await fetch("/api/admin/prices",{method:"PUT",headers:{"Content-Type":"application/json","x-admin-key":$("adminKey").value},body:JSON.stringify({monthly:Number($("monthInput").value),yearly:Number($("yearInput").value)})}),d=await r.json();if(!r.ok)throw Error(d.error||"Unauthorized.");s.className="status success";s.textContent="Prices saved.";prices()}catch(e){s.className="status error";s.textContent=e.message}});
+</script>
+</body>
+</html>
