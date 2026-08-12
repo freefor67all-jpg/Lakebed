@@ -2,527 +2,1121 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DE VENOM — Cinematic AI Studio</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#050914;color:#eef4ff}
-.wrap{max-width:900px;margin:auto;padding:28px 16px}
-.hero{padding:28px 0 20px}
-h1{font-size:clamp(38px,10vw,72px);margin:0;color:#fff}
-h2{margin:0 0 12px}
-p{color:#aab8d4;line-height:1.5}
-.badge{display:inline-block;padding:7px 10px;border:1px solid #263c69;border-radius:999px;color:#79a9ff;font-size:12px;margin-bottom:14px}
-.card{background:#0b1222;border:1px solid #1b2b4b;border-radius:18px;padding:20px;margin:16px 0;box-shadow:0 12px 35px #0005}
-label{display:block;font-weight:bold;margin:14px 0 7px}
-input,textarea,select{width:100%;padding:13px;border-radius:10px;border:1px solid #2a3b5d;background:#070d19;color:#fff;font-size:15px}
-textarea{min-height:100px;resize:vertical}
-button{width:100%;padding:14px;margin-top:14px;border:0;border-radius:10px;background:#2563eb;color:#fff;font-weight:bold;font-size:16px;cursor:pointer}
-button:disabled{opacity:.55}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.result{margin-top:15px}
-video,audio{width:100%;margin-top:12px;border-radius:10px}
-.status{padding:12px;border-radius:10px;background:#080f1d;color:#aab8d4;white-space:pre-wrap}
-small{color:#7f90b0}
-@media(max-width:650px){.row{grid-template-columns:1fr}}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top, #102b55 0%, #050a16 45%, #02040a 100%);
+  color: #f5f7ff;
+  min-height: 100vh;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(2, 6, 18, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(100, 150, 255, 0.15);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  padding: 22px 24px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 45px 18px 80px;
+}
+
+.hero {
+  text-align: center;
+  padding: 25px 10px 40px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid #315b9f;
+  border-radius: 999px;
+  background: rgba(25, 60, 115, 0.3);
+  color: #a9c7ff;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: clamp(42px, 8vw, 76px);
+  line-height: 0.95;
+  margin: 25px 0 20px;
+  font-weight: 900;
+}
+
+.hero p {
+  color: #aab8d3;
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.card {
+  background: rgba(7, 16, 34, 0.88);
+  border: 1px solid rgba(75, 126, 210, 0.34);
+  border-radius: 26px;
+  padding: 28px;
+  margin: 25px 0;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 30px;
+}
+
+label {
+  display: block;
+  margin: 20px 0 9px;
+  color: #b8c5dc;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid #294675;
+  background: #030814;
+  color: white;
+  border-radius: 17px;
+  padding: 17px;
+  font-size: 17px;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #3978ed;
+  box-shadow: 0 0 0 3px rgba(57, 120, 237, 0.12);
+}
+
+textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+select {
+  appearance: auto;
+}
+
+.file-box {
+  border: 2px dashed #31598e;
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  background: rgba(15, 36, 70, 0.28);
+}
+
+.preview-wrap {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.preview-wrap img {
+  max-width: 100%;
+  max-height: 430px;
+  border-radius: 20px;
+  display: none;
+  margin: auto;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 17px;
+  padding: 19px;
+  margin-top: 22px;
+  background: #2867e8;
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.secondary {
+  background: #142847;
+  border: 1px solid #31598e;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.result {
+  display: none;
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 17px;
+  background: #020713;
+  border: 1px solid #20385f;
+  line-height: 1.6;
+}
+
+.result.error {
+  color: #ff9eaf;
+}
+
+.result.success {
+  color: #a9ffc7;
+}
+
+.result a {
+  color: #8bb7ff;
+  font-weight: bold;
+}
+
+video,
+audio {
+  width: 100%;
+  margin-top: 18px;
+  border-radius: 15px;
+}
+
+.small {
+  color: #8798b8;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.warning {
+  color: #ffabb9;
+}
+
+footer {
+  text-align: center;
+  color: #8190aa;
+  padding: 30px;
+}
+
+.loading {
+  display: none;
+  text-align: center;
+  color: #9bbcff;
+  margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+}
 </style>
 </head>
 
 <body>
-<div class="wrap">
+
+<header>
+  <div class="header-inner">
+    <div class="logo">DE VENOM</div>
+  </div>
+</header>
+
+<main class="container">
 
 <section class="hero">
-<div class="badge">CINEMATIC AI STUDIO</div>
-<h1>DE VENOM</h1>
-<p>Make your photo move. Create a 6-second cinematic AI video and optionally add AI voice audio.</p>
+  <div class="badge">CINEMATIC AI STUDIO</div>
+
+  <h1>Make Your Photo Move.</h1>
+
+  <p>
+    Turn one image into a cinematic 6-second AI video
+    with movement and optional AI voice.
+  </p>
 </section>
 
+
+<!-- =====================================================
+     VIDEO GENERATOR
+===================================================== -->
+
 <section class="card">
+
 <h2>🎬 AI Image → Video</h2>
 
-<label for="image">Photo</label>
-<input id="image" type="file" accept="image/jpeg,image/png,image/webp">
+<p class="small">
+Upload an image, describe the movement, choose your resolution,
+and optionally add an AI voice directly to the final video.
+</p>
 
-<label for="motion">Movement command</label>
-<textarea id="motion" placeholder="Example: Make the person smile naturally, slowly move their head, and let their hair move gently in the wind."></textarea>
+<label>Image</label>
 
-<div class="row">
+<div class="file-box">
+  <input
+    id="imageInput"
+    type="file"
+    accept="image/jpeg,image/png,image/webp"
+  >
+</div>
+
+<div class="preview-wrap">
+  <img id="imagePreview" alt="Image preview">
+</div>
+
+
+<label>Movement command</label>
+
+<textarea
+  id="motionInput"
+  placeholder="Example: Slowly move forward, smile naturally, gently move the head and let the hair move in the wind."
+></textarea>
+
+
+<div class="grid">
 
 <div>
-<label for="resolution">Resolution</label>
+<label>Video resolution</label>
+
 <select id="resolution">
-<option value="480p">480p</option>
-<option value="720p" selected>720p</option>
-<option value="1080p">1080p</option>
-<option value="4k">4K</option>
+  <option value="480p" selected>480p — lower credit usage</option>
+  <option value="720p">720p</option>
+  <option value="1080p">1080p</option>
+  <option value="4k">4K</option>
 </select>
 </div>
 
 <div>
-<label for="voice">AI Voice</label>
-<select id="voice">
-<option value="Morgan Freeman" selected>Morgan Freeman</option>
-<option value="Scarlett Johansson">Scarlett Johansson</option>
-<option value="David Attenborough">David Attenborough</option>
-<option value="Emma Stone">Emma Stone</option>
+<label>Video duration</label>
+
+<select disabled>
+  <option selected>6 seconds</option>
 </select>
 </div>
 
 </div>
 
-<label for="audioText">AI audio / voice text (optional)</label>
-<textarea id="audioText" placeholder="Type what you want the AI voice to say. Leave empty for video without added voice audio."></textarea>
 
-<button id="generate">Generate 6-Second Video</button>
+<!-- =====================================================
+     VOICE FOR VIDEO
+===================================================== -->
 
-<div class="result" id="videoResult"></div>
+<label>🎙️ Add AI voice to this video</label>
+
+<select id="videoVoice">
+
+  <option value="Morgan Freeman" selected>
+    Morgan Freeman — Default
+  </option>
+
+  <option value="Barack Obama">Barack Obama</option>
+  <option value="Joe Rogan">Joe Rogan</option>
+  <option value="Samuel L. Jackson">Samuel L. Jackson</option>
+  <option value="James Earl Jones">James Earl Jones</option>
+  <option value="Jeff Goldblum">Jeff Goldblum</option>
+  <option value="David Attenborough">David Attenborough</option>
+  <option value="Sean Connery">Sean Connery</option>
+  <option value="Cillian Murphy">Cillian Murphy</option>
+  <option value="Anne Hathaway">Anne Hathaway</option>
+  <option value="Julia Roberts">Julia Roberts</option>
+  <option value="Natalie Portman">Natalie Portman</option>
+  <option value="Steve Carell">Steve Carell</option>
+  <option value="Amy Poehler">Amy Poehler</option>
+  <option value="Stephen Colbert">Stephen Colbert</option>
+  <option value="Jimmy Fallon">Jimmy Fallon</option>
+  <option value="David Letterman">David Letterman</option>
+  <option value="Katy Perry">Katy Perry</option>
+  <option value="Prince">Prince</option>
+  <option value="Kevin Bacon">Kevin Bacon</option>
+  <option value="Tom Hiddleston">Tom Hiddleston</option>
+  <option value="Adam Driver">Adam Driver</option>
+  <option value="Alan Rickman">Alan Rickman</option>
+  <option value="Bruno Mars">Bruno Mars</option>
+  <option value="Carrie Underwood">Carrie Underwood</option>
+
+</select>
+
+<p class="small">
+If you leave the voice text empty, the video is created without
+AI voice. If you enter voice text, the selected voice is added
+to the final video automatically.
+</p>
+
+
+<label>Voice text — optional</label>
+
+<textarea
+  id="videoAudioText"
+  placeholder="Example: Hello, welcome to DE Venom."
+></textarea>
+
+
+<button id="generateVideoBtn">
+  Generate 6-Second Video
+</button>
+
+<div id="videoLoading" class="loading">
+  ⏳ Generating your video. Please wait...
+</div>
+
+<div id="videoResult" class="result"></div>
+
 </section>
 
 
+<!-- =====================================================
+     AUDIO ONLY
+===================================================== -->
+
 <section class="card">
+
 <h2>🔊 AI Audio Only</h2>
 
-<label for="audioOnlyText">Text</label>
-<textarea id="audioOnlyText" placeholder="Type something for the AI voice to say."></textarea>
+<p class="small">
+Generate an AI voice file separately.
+</p>
 
-<button id="generateAudio">Generate AI Audio</button>
 
-<div class="result" id="audioResult"></div>
+<label>Text</label>
+
+<textarea
+  id="audioText"
+  placeholder="Type something for the AI voice to say."
+></textarea>
+
+
+<label>Voice</label>
+
+<select id="audioVoice">
+
+  <option value="Morgan Freeman" selected>
+    Morgan Freeman — Default
+  </option>
+
+  <option value="Barack Obama">Barack Obama</option>
+  <option value="Joe Rogan">Joe Rogan</option>
+  <option value="Samuel L. Jackson">Samuel L. Jackson</option>
+  <option value="James Earl Jones">James Earl Jones</option>
+  <option value="Jeff Goldblum">Jeff Goldblum</option>
+  <option value="David Attenborough">David Attenborough</option>
+  <option value="Sean Connery">Sean Connery</option>
+  <option value="Cillian Murphy">Cillian Murphy</option>
+  <option value="Anne Hathaway">Anne Hathaway</option>
+  <option value="Julia Roberts">Julia Roberts</option>
+  <option value="Natalie Portman">Natalie Portman</option>
+  <option value="Steve Carell">Steve Carell</option>
+  <option value="Amy Poehler">Amy Poehler</option>
+  <option value="Stephen Colbert">Stephen Colbert</option>
+  <option value="Jimmy Fallon">Jimmy Fallon</option>
+  <option value="David Letterman">David Letterman</option>
+  <option value="Katy Perry">Katy Perry</option>
+  <option value="Prince">Prince</option>
+  <option value="Kevin Bacon">Kevin Bacon</option>
+  <option value="Tom Hiddleston">Tom Hiddleston</option>
+  <option value="Adam Driver">Adam Driver</option>
+  <option value="Alan Rickman">Alan Rickman</option>
+  <option value="Bruno Mars">Bruno Mars</option>
+
+</select>
+
+
+<button id="generateAudioBtn">
+  Generate AI Audio
+</button>
+
+<div id="audioLoading" class="loading">
+  ⏳ Generating AI voice...
+</div>
+
+<div id="audioResult" class="result"></div>
+
 </section>
 
 
+<!-- =====================================================
+     PREMIUM
+===================================================== -->
+
 <section class="card">
+
 <h2>⭐ Premium</h2>
 
-<p>Enter your Premium access key to activate Premium features.</p>
+<p class="small">
+Premium features can be activated with your Premium access key.
+</p>
 
-<input id="premiumKey" type="password" placeholder="Premium access key">
+<input
+  id="premiumKey"
+  type="password"
+  placeholder="Premium access key"
+>
 
-<button id="activatePremium">Activate Premium</button>
+<button id="premiumBtn">
+  Activate Premium
+</button>
 
-<div class="result" id="premiumResult"></div>
+<div id="premiumResult" class="result"></div>
+
 </section>
 
 
+<!-- =====================================================
+     ADMIN
+===================================================== -->
+
 <section class="card">
+
 <h2>👑 Admin Price Control</h2>
 
-<input id="adminKey" type="password" placeholder="Admin key">
+<p class="small">
+Admin controls are available only when the matching server
+endpoints are configured.
+</p>
 
-<div class="row">
-<input id="monthly" type="number" value="1000" min="0" placeholder="Monthly ₦">
-<input id="yearly" type="number" value="15000" min="0" placeholder="Yearly ₦">
+<input
+  id="adminKey"
+  type="password"
+  placeholder="Admin key"
+>
+
+<div class="grid">
+
+<input
+  id="monthlyPrice"
+  type="number"
+  value="1000"
+  placeholder="Monthly price"
+>
+
+<input
+  id="yearlyPrice"
+  type="number"
+  value="15000"
+  placeholder="Yearly price"
+>
+
 </div>
 
-<button id="savePrices">Save Prices</button>
+<button id="savePricesBtn">
+  Save Prices
+</button>
 
-<div class="result" id="adminResult"></div>
+<div id="adminResult" class="result"></div>
+
 </section>
 
-<section class="card">
-<small>DE VENOM • AI Image-to-Video • 6 seconds</small>
-</section>
+</main>
 
-</div>
+
+<footer>
+  DE VENOM • AI Image-to-Video • 6 seconds
+</footer>
 
 
 <script>
 
-const $ = id => document.getElementById(id);
+/* =====================================================
+   HELPERS
+===================================================== */
 
+function showResult(element, message, type = "") {
 
-function show(el,text){
+  element.style.display = "block";
 
-el.innerHTML =
-'<div class="status">' +
-String(text).replace(/[&<>]/g,m=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;'
-}[m])) +
-'</div>';
+  element.className = "result " + type;
 
+  element.innerHTML = message;
 }
 
 
-/* VIDEO */
+async function readResponse(response) {
 
-$("generate").onclick = async () => {
+  const text = await response.text();
 
-const file = $("image").files[0];
-const motion = $("motion").value.trim();
-const resolution = $("resolution").value;
-const audioText = $("audioText").value.trim();
-const voiceName = $("voice").value;
+  let data;
 
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(
+      text ||
+      `Server returned HTTP ${response.status}`
+    );
+  }
 
-if(!file){
+  if (!response.ok) {
 
-show($("videoResult"),"Please choose an image.");
-return;
+    throw new Error(
+      data.error ||
+      data.message ||
+      `Server returned HTTP ${response.status}`
+    );
 
+  }
+
+  return data;
 }
 
 
-if(!motion){
+/* =====================================================
+   IMAGE PREVIEW
+===================================================== */
 
-show($("videoResult"),"Please enter a movement command.");
-return;
+const imageInput =
+  document.getElementById("imageInput");
 
-}
+const imagePreview =
+  document.getElementById("imagePreview");
 
 
-const fd = new FormData();
+imageInput.addEventListener("change", () => {
 
-fd.append("image",file);
-fd.append("motion",motion);
-fd.append("resolution",resolution);
-fd.append("audioText",audioText);
-fd.append("voiceName",voiceName);
+  const file = imageInput.files[0];
 
+  if (!file) {
 
-$("generate").disabled = true;
-$("generate").textContent = "Generating…";
+    imagePreview.style.display = "none";
 
-show(
-$("videoResult"),
-"Creating your cinematic video. This can take a few minutes…"
-);
+    return;
+  }
 
+  const url = URL.createObjectURL(file);
 
-try{
+  imagePreview.src = url;
 
-const r = await fetch(
-"/api/create-video",
-{
-method:"POST",
-body:fd
-}
-);
+  imagePreview.style.display = "block";
+});
 
 
-const data =
-await r.json().catch(
-()=>({error:"Invalid server response."})
-);
+/* =====================================================
+   VIDEO GENERATION
+===================================================== */
 
+const generateVideoBtn =
+  document.getElementById("generateVideoBtn");
 
-if(!r.ok){
+const videoResult =
+  document.getElementById("videoResult");
 
-throw new Error(
-data.error ||
-"Video generation failed."
-);
+const videoLoading =
+  document.getElementById("videoLoading");
 
-}
 
+generateVideoBtn.addEventListener("click", async () => {
 
-$("videoResult").innerHTML =
+  try {
 
-'<div class="status">Video ready.</div>' +
+    const image =
+      imageInput.files[0];
 
-'<video controls playsinline src="' +
-data.video +
-'"></video>' +
+    const motion =
+      document.getElementById("motionInput").value.trim();
 
-'<a href="' +
-data.video +
-'" target="_blank" rel="noopener">' +
+    const resolution =
+      document.getElementById("resolution").value;
 
-'<button>Open Video</button>' +
+    const voiceName =
+      document.getElementById("videoVoice").value;
 
-'</a>';
+    const audioText =
+      document.getElementById("videoAudioText").value.trim();
 
 
-}catch(e){
+    if (!image) {
 
-show(
-$("videoResult"),
-e.message
-);
+      showResult(
+        videoResult,
+        "Please select an image first.",
+        "error"
+      );
 
-}finally{
+      return;
+    }
 
-$("generate").disabled = false;
 
-$("generate").textContent =
-"Generate 6-Second Video";
+    if (!motion) {
 
-}
+      showResult(
+        videoResult,
+        "Please enter a movement command.",
+        "error"
+      );
 
-};
+      return;
+    }
 
 
-/* AUDIO ONLY */
+    const formData =
+      new FormData();
 
-$("generateAudio").onclick = async () => {
+    formData.append(
+      "image",
+      image
+    );
 
-const text =
-$("audioOnlyText").value.trim();
+    formData.append(
+      "motion",
+      motion
+    );
 
-const voiceName =
-$("voice").value;
+    formData.append(
+      "resolution",
+      resolution
+    );
 
 
-if(!text){
+    /*
+      IMPORTANT:
+      Only send voice data when the user actually
+      entered audio text.
+    */
 
-show(
-$("audioResult"),
-"Please enter text for the AI voice."
-);
+    if (audioText) {
 
-return;
+      formData.append(
+        "audioText",
+        audioText
+      );
 
-}
+      formData.append(
+        "voiceName",
+        voiceName
+      );
 
+    }
 
-$("generateAudio").disabled = true;
 
-$("generateAudio").textContent =
-"Generating…";
+    generateVideoBtn.disabled = true;
 
+    videoLoading.style.display = "block";
 
-show(
-$("audioResult"),
-"Generating AI audio…"
-);
+    showResult(
+      videoResult,
+      "Starting video generation..."
+    );
 
 
-try{
+    const response =
+      await fetch(
+        "/api/create-video",
+        {
+          method: "POST",
+          body: formData
+        }
+      );
 
-const r = await fetch(
-"/api/create-audio",
-{
-method:"POST",
 
-headers:{
-"Content-Type":
-"application/json"
-},
+    const data =
+      await readResponse(response);
 
-body:JSON.stringify({
-text,
-voiceName
-})
 
-}
-);
+    const videoUrl =
+      data.video;
 
 
-const data =
-await r.json().catch(
-()=>({
-error:"Invalid server response."
-})
-);
+    if (!videoUrl) {
 
+      throw new Error(
+        "The server did not return a video URL."
+      );
 
-if(!r.ok){
+    }
 
-throw new Error(
-data.error ||
-"Audio generation failed."
-);
 
-}
+    showResult(
+      videoResult,
+      `
+        <strong>✅ Video created successfully.</strong>
 
+        <br><br>
 
-$("audioResult").innerHTML =
+        Resolution: ${data.resolution || resolution}
 
-'<div class="status">Audio ready.</div>' +
+        <br>
 
-'<audio controls src="' +
-data.audio +
-'"></audio>';
+        Duration: ${data.duration || 6} seconds
 
+        <br>
 
-}catch(e){
+        AI audio:
+        ${data.audioIncluded ? "Included" : "Not included"}
 
-show(
-$("audioResult"),
-e.message
-);
+        <video
+          controls
+          playsinline
+          src="${videoUrl}">
+        </video>
 
-}finally{
+        <br>
 
-$("generateAudio").disabled = false;
+        <a
+          href="${videoUrl}"
+          target="_blank"
+          rel="noopener">
+          Open generated video
+        </a>
+      `,
+      "success"
+    );
 
-$("generateAudio").textContent =
-"Generate AI Audio";
+  } catch (error) {
 
-}
+    console.error(error);
 
-};
+    showResult(
+      videoResult,
+      "❌ " + error.message,
+      "error"
+    );
 
+  } finally {
 
-/* PREMIUM */
+    generateVideoBtn.disabled = false;
 
-$("activatePremium").onclick = async () => {
+    videoLoading.style.display = "none";
 
-const key =
-$("premiumKey").value.trim();
+  }
 
+});
 
-if(!key){
 
-show(
-$("premiumResult"),
-"Enter your Premium access key."
-);
+/* =====================================================
+   AUDIO ONLY
+===================================================== */
 
-return;
+const generateAudioBtn =
+  document.getElementById("generateAudioBtn");
 
-}
+const audioResult =
+  document.getElementById("audioResult");
 
+const audioLoading =
+  document.getElementById("audioLoading");
 
-try{
 
-const r = await fetch(
-"/api/premium/activate",
-{
+generateAudioBtn.addEventListener("click", async () => {
 
-method:"POST",
+  try {
 
-headers:{
-"Content-Type":
-"application/json"
-},
+    const text =
+      document.getElementById("audioText").value.trim();
 
-body:JSON.stringify({
-key
-})
+    const voiceName =
+      document.getElementById("audioVoice").value;
 
-}
-);
 
+    if (!text) {
 
-const data =
-await r.json().catch(
-()=>({
-error:"Invalid server response."
-})
-);
+      showResult(
+        audioResult,
+        "Please enter text for the AI voice.",
+        "error"
+      );
 
+      return;
+    }
 
-if(!r.ok){
 
-throw new Error(
-data.error ||
-"Premium activation failed."
-);
+    generateAudioBtn.disabled = true;
 
-}
+    audioLoading.style.display = "block";
 
 
-localStorage.setItem(
-"deVenomPremiumToken",
-data.token || key
-);
+    const response =
+      await fetch(
+        "/api/create-audio",
+        {
+          method: "POST",
 
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
 
-show(
-$("premiumResult"),
-"Premium activated successfully."
-);
+          body: JSON.stringify({
 
+            text,
 
-}catch(e){
+            /*
+              Never send "default".
+              Morgan Freeman is selected by default.
+            */
 
-show(
-$("premiumResult"),
-e.message
-);
+            voiceName
 
-}
+          })
 
-};
+        }
+      );
 
 
-/* ADMIN */
+    const data =
+      await readResponse(response);
 
-$("savePrices").onclick = async () => {
 
-const key =
-$("adminKey").value.trim();
+    if (!data.audio) {
 
+      throw new Error(
+        "The server did not return an audio URL."
+      );
 
-if(!key){
+    }
 
-show(
-$("adminResult"),
-"Enter your Admin key."
-);
 
-return;
+    showResult(
+      audioResult,
+      `
+        <strong>✅ AI audio created.</strong>
 
-}
+        <br>
 
+        Voice: ${data.voice || voiceName}
 
-try{
+        <audio
+          controls
+          src="${data.audio}">
+        </audio>
 
-const r = await fetch(
-"/api/prices",
-{
+        <br>
 
-method:"POST",
+        <a
+          href="${data.audio}"
+          target="_blank"
+          rel="noopener">
+          Open audio
+        </a>
+      `,
+      "success"
+    );
 
-headers:{
-"Content-Type":
-"application/json"
-},
 
-body:JSON.stringify({
+  } catch (error) {
 
-adminKey:key,
+    console.error(error);
 
-monthly:Number(
-$("monthly").value
-),
+    showResult(
+      audioResult,
+      "❌ " + error.message,
+      "error"
+    );
 
-yearly:Number(
-$("yearly").value
-)
+  } finally {
 
-})
+    generateAudioBtn.disabled = false;
 
-}
-);
+    audioLoading.style.display = "none";
 
+  }
 
-const data =
-await r.json().catch(
-()=>({
-error:"Invalid server response."
-})
-);
+});
 
 
-if(!r.ok){
+/* =====================================================
+   PREMIUM
+===================================================== */
 
-throw new Error(
-data.error ||
-"Could not save prices."
-);
+document
+  .getElementById("premiumBtn")
+  .addEventListener("click", async () => {
 
-}
+    const result =
+      document.getElementById("premiumResult");
 
+    const key =
+      document.getElementById("premiumKey").value.trim();
 
-show(
-$("adminResult"),
-"Prices saved."
-);
 
+    if (!key) {
 
-}catch(e){
+      showResult(
+        result,
+        "Please enter your Premium access key.",
+        "error"
+      );
 
-show(
-$("adminResult"),
-e.message
-);
+      return;
+    }
 
-}
 
-};
+    try {
+
+      const response =
+        await fetch(
+          "/api/premium/activate",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              key
+            })
+          }
+        );
+
+
+      const data =
+        await readResponse(response);
+
+
+      if (data.token) {
+
+        localStorage.setItem(
+          "deVenomPremiumToken",
+          data.token
+        );
+
+      }
+
+
+      showResult(
+        result,
+        "✅ Premium activated.",
+        "success"
+      );
+
+
+    } catch (error) {
+
+      showResult(
+        result,
+        "❌ " + error.message,
+        "error"
+      );
+
+    }
+
+  });
+
+
+/* =====================================================
+   ADMIN PRICES
+===================================================== */
+
+document
+  .getElementById("savePricesBtn")
+  .addEventListener("click", async () => {
+
+    const result =
+      document.getElementById("adminResult");
+
+    const key =
+      document.getElementById("adminKey").value.trim();
+
+    const monthly =
+      Number(
+        document.getElementById("monthlyPrice").value
+      );
+
+    const yearly =
+      Number(
+        document.getElementById("yearlyPrice").value
+      );
+
+
+    if (!key) {
+
+      showResult(
+        result,
+        "Please enter the Admin key.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/prices",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+
+              adminKey: key,
+
+              monthly,
+
+              yearly
+
+            })
+          }
+        );
+
+
+      const data =
+        await readResponse(response);
+
+
+      showResult(
+        result,
+        "✅ Prices saved successfully.",
+        "success"
+      );
+
+
+    } catch (error) {
+
+      showResult(
+        result,
+        "❌ " + error.message,
+        "error"
+      );
+
+    }
+
+  });
 
 </script>
 
